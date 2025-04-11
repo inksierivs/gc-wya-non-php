@@ -41,24 +41,38 @@ async function signupUser(event) {
     return;
   }
 
+  // ✅ Only allow @gordoncollege.edu.ph emails
+  if (!email.endsWith("@gordoncollege.edu.ph")) {
+    alert("You must use a @gordoncollege.edu.ph domain email to sign up.");
+    return;
+  }
+
+  // Determine role based on email
+  // Auto-assign role based on format
+  let role = "student"; // Default
+  const localPart = email.split("@")[0];
+  if (isNaN(localPart)) {
+    role = "teacher";
+  }
+
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Save additional user details to Firestore
     await setDoc(doc(db, "users", user.uid), {
-      email: email,
+      email,
       firstName: fname,
       lastName: lname,
-
+      role
     });
 
     alert("Signup successful!");
-    window.location.href = "login.html"; // Redirect to login page after successful signup
+    window.location.href = "login.html";
   } catch (err) {
     alert("Signup error: " + err.message);
   }
 }
+
 
 // Function to log in users
 async function loginUser(event) {
