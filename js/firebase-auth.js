@@ -82,25 +82,34 @@ async function loginUser(event) {
   const password = document.getElementById("password").value;
 
   try {
-    // ✅ Sign in user first
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // ✅ Then fetch their Firestore profile
+    // 🔥 Get user profile from Firestore
     const userDoc = await getDoc(doc(db, "users", user.uid));
 
     if (userDoc.exists()) {
       const userData = userDoc.data();
 
-      // ✅ Store full info in sessionStorage
-      sessionStorage.setItem("user", JSON.stringify({
+      const sessionUser = {
         uid: user.uid,
         email: user.email,
         firstName: userData.firstName,
-        lastName: userData.lastName
-      }));
+        lastName: userData.lastName,
+        role: userData.role
+      };
 
-      window.location.href = "dashboard.html";
+      // Save user session
+      sessionStorage.setItem("user", JSON.stringify(sessionUser));
+
+      // ✅ Redirect based on role
+      if (userData.role === "teacher") {
+        window.location.href = "dashboard.html";
+      } else if (userData.role === "student") {
+        window.location.href = "dashboard copy.html";
+      } else {
+        alert("Unknown user role.");
+      }
     } else {
       alert("User profile not found in Firestore.");
     }
@@ -109,6 +118,7 @@ async function loginUser(event) {
     alert("Login error: " + err.message);
   }
 }
+
 
 // Function to log out users
 function logoutUser() {
@@ -121,4 +131,4 @@ function logoutUser() {
 
 
 // Export functions for usage in HTML
-export { signupUser, loginUser, logoutUser };
+export { signupUser, loginUser, logoutUser, db };

@@ -213,3 +213,92 @@
     background: #dc2626;
   }
   
+  .class-info-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 700px;
+    margin-bottom: 2rem;
+  }
+  
+  /* Add green left border to info-header */
+  .info-header {
+    text-align: left;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: #333;
+    margin-bottom: 1.5rem;
+    background-color: #fbf5e9;
+    padding: 1rem 2rem;
+    border-left: 6px solid #118b50;
+    border-radius: 0.5rem;
+  }
+  
+  .attendance-summary {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+  }
+  
+  .summary-box {
+    background-color: #fbf5e9;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .summary-box h3 {
+    font-size: 1rem;
+    color: #118b50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .summary-box p {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Responsive student table */
+  .student-table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 0 1rem;
+    margin: auto;
+  }
+  
+  .student-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fbf5e9;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    min-width: 600px; /* ensures table doesn't break on small screens */
+  }
+  
+  .student-table th, .student-table td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.95rem;
+  }
+  
+  .student-table th {
+    background-color: #118b50;
+    color: white;
+  }
+  
+  .status.present {
+    color: #22c55e;
+    font-weight: bold;
+  }
+  
+  .status.absent {
+    color: #ef4444;
+    font-weight: bold;
+  }
+  
