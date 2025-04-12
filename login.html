@@ -28,6 +28,80 @@
     import { loginUser } from './js/firebase-auth.js';
 
     document.getElementById("login-button").addEventListener("click", loginUser);
+
+
+
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // Get DOM elements
+      const userNameEl = document.getElementById("userName");
+      const userStatusEl = document.getElementById("userStatus");
+      const userIDEl = document.getElementById("userID");
+      const userEmailEl = document.getElementById("userEmail");
+
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          userEmailEl.textContent = user.email;
+
+          try {
+            const docRef = db.collection("users").doc(user.uid);
+            const doc = await docRef.get();
+
+            if (doc.exists) {
+              const data = doc.data();
+              userNameEl.textContent = data.name || "No name";
+              userIDEl.textContent = data.idNumber || "No ID";
+              userStatusEl.textContent = data.status || "No status";
+              document.getElementById("contactNumber").value = data.contactNumber || "";
+            } else {
+              console.log("No such document!");
+            }
+          } catch (error) {
+            console.error("Error getting document:", error);
+          }
+        } else {
+          window.location.href = "/login.html"; // redirect if not logged in
+        }
+      });
+
+      function logout() {
+        auth.signOut().then(() => {
+          window.location.href = "/login.html";
+        });
+      }
+
+      function updateContactNumber(event) {
+        const number = event.target.value;
+        const user = auth.currentUser;
+        if (user) {
+          db.collection("users").doc(user.uid).update({
+            contactNumber: number
+          });
+        }
+      }
+
+      function updateHeaderPhoto(event) {
+        // Add image uploading logic here (e.g. Firebase Storage)
+        console.log("Header photo selected", event.target.files[0]);
+      }
+
+      function updateProfilePhoto(event) {
+        // Add image uploading logic here (e.g. Firebase Storage)
+        console.log("Profile photo selected", event.target.files[0]);
+      }
+      
   </script>
 </body>
 </html>
