@@ -1,1 +1,59 @@
-testing
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Profile</title>
+      
+        <!-- CSS and Tailwind -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+        <link rel="stylesheet" href="styles.css"/>
+        <script src="https://cdn.tailwindcss.com"></script>
+      
+        <!-- ✅ Firebase SDK via CDN (no modules) -->
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+      
+        <!-- ✅ Your Firebase config + init (must come after Firebase SDK) -->
+        <script src="js/firebase-config.js"></script>
+      
+        <!-- ✅ Your Firebase logic (uses global `auth`, `db`) -->
+        <script src="js/profile.js" defer></script>
+    </head>
+
+<body class="bg-white flex flex-col items-center justify-center min-h-screen">
+  <div class="w-full bg-gray-300 flex items-center justify-between p-4">
+    <i class="fas fa-bars text-black"></i>
+    <h1 class="text-black">Profile</h1>
+    <div></div>
+  </div>
+
+  <div class="w-full bg-gray-400 h-32 flex items-center justify-center relative">
+    <input class="absolute inset-0 opacity-0 cursor-pointer" id="headerPhotoInput" onchange="updateHeaderPhoto(event)" type="file" />
+    <img alt="Header photo placeholder" class="w-full h-full object-cover" id="headerPhoto" src="https://placehold.co/400x100" />
+  </div>
+
+  <div class="w-full max-w-xs text-center mt-4 relative">
+    <div class="relative -mt-12">
+      <input class="absolute inset-0 opacity-0 cursor-pointer" id="profilePhotoInput" onchange="updateProfilePhoto(event)" type="file" />
+      <img alt="Profile picture placeholder" class="w-24 h-24 mx-auto rounded-full border-4 border-white" id="profilePhoto" src="https://placehold.co/100x100" />
+    </div>
+    <h2 class="text-xl font-semibold mt-4" id="userName">Loading...</h2>
+    <div class="border-t border-black mt-2"></div>
+    <p class="mt-2" id="role">Loading...</p>
+    <div class="border-t border-black mt-2"></div>
+    <p class="mt-2" id="userID">Loading...</p>
+    <div class="border-t border-black mt-2"></div>
+    <p class="mt-2" id="userEmail">Loading...</p>
+    <div class="border-t border-black mt-2"></div>
+    <input class="mt-2 text-center border-none focus:outline-none" id="contactNumber" onchange="updateContactNumber(event)" type="text" value="" />
+    <div class="border-t border-black mt-2"></div>
+  </div>
+
+  <button class="mt-6 bg-gray-300 text-black py-2 px-4 rounded" onclick="logout()">Log Out</button>
+
+  <!-- ✅ Link to external JS -->
+  <script type="module" src="js/profile.js"></script>
+</body>
+</html>
