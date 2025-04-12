@@ -14,6 +14,9 @@ addClassForm.addEventListener("submit", async function (event) {
   const classCode = document.getElementById("classCode").value;
   const schedule = document.getElementById("schedule").value;
   const room = document.getElementById("room").value;
+  const year = document.getElementById("year").value;
+  const block = document.getElementById("block").value;
+  const program = document.getElementById("program").value;
 
   const user = JSON.parse(sessionStorage.getItem("user"));
   if (!user || user.role !== "teacher") {
@@ -27,6 +30,9 @@ addClassForm.addEventListener("submit", async function (event) {
     classCode,
     schedule,
     room,
+    year,
+    block,
+    program,
     createdAt: serverTimestamp()
   };
 

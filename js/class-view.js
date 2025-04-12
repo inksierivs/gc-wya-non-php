@@ -31,10 +31,11 @@ async function loadClassData() {
     const classData = classDocSnap.data();
 
     // 🖼 Update the DOM with class data
-    document.querySelector(".header h1").textContent = classData.subjectName;
     document.getElementById("classCode").textContent = classData.classCode;
     document.getElementById("subjectName").textContent = classData.subjectName;
     document.getElementById("schedule").textContent = classData.schedule;
+    document.getElementById("classHeader").textContent = `${classData.program} : ${classData.year} - ${classData.block}`;
+
 
     // You can also dynamically load students/attendance here later
 
